@@ -1,0 +1,45 @@
+
+<div class="container">
+	<div class="page-header">
+	  <h1>Cricket<small>Scores</small></h1>
+	</div>
+	<div class=" well">
+		<div class="row col-lg-12">
+			<label>Country</label>
+			<input type="text" class="form-control" ng-model="country" placeholder="Country" />
+		</div>
+		<div class="row col-lg-12">
+			<label>Colour</label>
+			<input type="text" class="form-control" ng-model="colour" placeholder="Colour" />
+		</div>
+		<br/>
+		<div class="row">
+			<div class="col-lg-3  pull-left">
+				<input type="button" value="Submit" ng-click="postTeam()" class="btn btn-primary" />
+				<input type="button" value="Cancel" class="btn btn-primary" />
+			</div>
+		</div>
+		{{country}}
+	</div>
+	<!--<div ng-view></div>-->
+	<div class="well row col-lg-12">
+		<table class="table">
+			<thead>
+				<tr>
+					<th>S.No</th>
+					<th>Team Name</th>
+					<th>Team Color</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr ng-repeat="team in teams">
+					<td>{{team.id}}</td>
+					<td>{{team.name}}</td>
+					<td>{{team.color}}</td>
+					<td><input type="button" class="btn" ng-click="deleteTeam(team.id)" > </td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+
+</div>

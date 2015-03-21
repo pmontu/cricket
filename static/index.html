@@ -12,58 +12,20 @@
 	<!--<script src="js/app.js"></script>-->
 	<script src="js/bootstrap.js"></script>
 
-	<div class="container">
-		<div class="page-header">
-		  <h1>Cricket<small>Scores</small></h1>
-		</div>
-		<div class=" well">
-			<div class="row col-lg-12">
-				<label>Country</label>
-				<input type="text" class="form-control" ng-model="country" placeholder="Country" />
-			</div>
-			<div class="row col-lg-12">
-				<label>Colour</label>
-				<input type="text" class="form-control" ng-model="colour" placeholder="Colour" />
-			</div>
-			<br/>
-			<div class="row">
-				<div class="col-lg-3  pull-left">
-					<input type="button" value="Submit" ng-click="postTeam()" class="btn btn-primary" />
-					<input type="button" value="Cancel" class="btn btn-primary" />
-				</div>
-			</div>
-			{{country}}
-		</div>
-		<!--<div ng-view></div>-->
-		<div class="well row col-lg-12">
-			<table class="table">
-				<thead>
-					<tr>
-						<th>S.No</th>
-						<th>Team Name</th>
-						<th>Team Color</th>
-					</tr>
-				</thead>
-				<tbody>
-					<tr ng-repeat="team in teams">
-						<td>{{team.id}}</td>
-						<td>{{team.name}}</td>
-						<td>{{team.color}}</td>
-						<td><input type="button" class="btn" ng-click="deleteTeam(team.id)" > </td>
-					</tr>
-				</tbody>
-			</table>
-		</div>
-
-	</div>
+	<div ng-view></div>
 
 	<script>
-	var app = angular.module('cricketApp',[]);
+	var app = angular.module('cricketApp',['ngRoute']);
 
 
-	app.config(function($httpProvider){
+	app.config(function($httpProvider,$routeProvider){
 		$httpProvider.defaults.xsrfCookieName = 'csrftoken';
 		$httpProvider.defaults.xsrfHeaderName = 'X-CSRFToken';
+
+		$routeProvider.when('/',{
+			templateUrl:"views/home.html",
+			controller:"teamInputController"
+		});
 	});
 
 
@@ -98,7 +60,6 @@
 		teamList();
 		function teamList(){
 			$http.get("http://localhost:8000/analysis/teams.json").success(function(data){
-				console.log(data);
 				$scope.teams = data
 			}).error(function(status){
 				console.log(status);
